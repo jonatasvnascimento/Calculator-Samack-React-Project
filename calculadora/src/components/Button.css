@@ -29,9 +29,19 @@
 }
 
 .button.operation {
-    background-color: #fa8231;
-    color: #ffffff;
+    color: #019aa5;
+    font-weight: 700;
 }
+
+.button.clear{
+    color: #ffe600;
+    font-weight: 700;
+}
+
+.button.equals {
+    background-color: blue;
+}
+
 
 .button.operation:active{
     background-color: #fa8231cc;

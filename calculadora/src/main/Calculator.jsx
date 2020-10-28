@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import './Calculator.css'
 
 import Button from '../components/Button'
@@ -14,9 +14,9 @@ const initialState = {
 
 export default class Calculator extends Component {
 
-    state = {...initialState}
+    state = { ...initialState }
 
-    constructor(props){
+    constructor(props) {
         super()
         this.clearMemory = this.clearMemory.bind(this)
         this.setOperation = this.setOperation.bind(this)
@@ -24,21 +24,61 @@ export default class Calculator extends Component {
     }
 
     clearMemory() {
-        this.setState({...initialState})
+        this.setState({ ...initialState })
     }
 
     setOperation(operation) {
         if (this.state.current === 0) {
-            this.setState({ operation, current: 1, clearDisplay: true})
+            this.setState({ operation, current: 1, clearDisplay: true })
         } else {
             const equals = operation === '='
             const currentOperation = this.state.operation
-
             const values = [...this.state.values]
+        
+            const porcentageCalc = (porcentage, value_calc) => {
+                let calc_final = parseFloat(porcentage * (value_calc / 100))
+                return calc_final
+            }
 
-            try{
-                values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
-            } catch(e){
+            const square_root = (num_calc) => {
+                return Math.sqrt(num_calc).toFixed(1)
+            }
+
+            try {
+                // values[0] = eval(`${values[0]} ${currentOperation} ${values[1]}`)
+                switch (currentOperation) {
+                    case '+':
+                       values[0] += values[1]
+                        break;
+                    case '-':
+                        values[0] -= values[1]                   
+                        break
+                    case '*':
+                        values[0] *= values[1]                   
+                        break
+                    case '/':
+                        values[0] /= values[1]                   
+                        break    
+                    case '%':
+                        if (values[0] = porcentageCalc(values[0], values[1])) {
+                            return values[0] = porcentageCalc(values[0], values[1])
+                        } else {
+                            values[0] = this.state.values[0]    
+                        }                     
+                        break
+                    case '√':
+                        if (values[0] = square_root(values[0])) {
+                            return values[0] = square_root(values[0])
+                        } else {
+                            values[0] = this.state.values[0]
+                        }
+                        
+                        break
+                    default:
+                        break;
+                }
+
+            } catch (e) {
                 values[0] = this.state.values[0]
             }
             values[1] = 0
@@ -74,28 +114,33 @@ export default class Calculator extends Component {
         }
     }
 
-    render () {
+    render() {
         return (
-            <div className="calculator">
-                <Display value={this.state.displayValue}/>
-                <Button label="AC" click={this.clearMemory} triple/>
-                <Button label="/" click={this.setOperation} operation/>
-                <Button label="7" click={this.addDigit}/>
-                <Button label="8" click={this.addDigit}/>
-                <Button label="9" click={this.addDigit}/>
-                <Button label="*" click={this.setOperation} operation/>
-                <Button label="4" click={this.addDigit}/>
-                <Button label="5" click={this.addDigit}/>
-                <Button label="6" click={this.addDigit}/>
-                <Button label="-" click={this.setOperation} operation/>
-                <Button label="1" click={this.addDigit}/>
-                <Button label="2" click={this.addDigit}/>
-                <Button label="3" click={this.addDigit}/>
-                <Button label="+" click={this.setOperation} operation/>
-                <Button label="0" click={this.addDigit} double/>
-                <Button label="." click={this.addDigit}/>
-                <Button label="=" click={this.setOperation} operation />
+            <div className="box">
+                <div className="calculator">
+                    <Display value={this.state.displayValue} />
+                    <Button label="C" click={this.clearMemory} clear/>
+                    <Button label="√" click={this.setOperation} operation />
+                    <Button label="%" click={this.setOperation} operation />
+                    <Button label="/" click={this.setOperation} operation />
+                    <Button label="7" click={this.addDigit} />
+                    <Button label="8" click={this.addDigit} />
+                    <Button label="9" click={this.addDigit} />
+                    <Button label="*" click={this.setOperation} operation />
+                    <Button label="4" click={this.addDigit} />
+                    <Button label="5" click={this.addDigit} />
+                    <Button label="6" click={this.addDigit} />
+                    <Button label="-" click={this.setOperation} operation />
+                    <Button label="1" click={this.addDigit} />
+                    <Button label="2" click={this.addDigit} />
+                    <Button label="3" click={this.addDigit} />
+                    <Button label="+" click={this.setOperation} operation />
+                    <Button label="0" click={this.addDigit} double />
+                    <Button label="." click={this.addDigit} />
+                    <Button label="=" click={this.setOperation} operation />
+                </div>
             </div>
+
         )
     }
 }

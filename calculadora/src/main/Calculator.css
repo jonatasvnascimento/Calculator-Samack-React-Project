@@ -1,4 +1,4 @@
-    .calculator {
+.calculator {
     height: 320px;
     width: 235px;
     border-radius: 5px;
@@ -7,4 +7,9 @@
     display: grid;
     grid-template-columns: repeat(4, 25%);
     grid-template-rows:1fr 48px 48px 48px 48px 48px ;
+}
+.box {
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.452);
+    background-color: rgba(0, 0, 0, 0.116);
+    border-radius: 10px;
 }

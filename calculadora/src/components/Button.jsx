@@ -7,6 +7,8 @@ export default props => {
     classes += props.double ? 'double' : ''
     classes += props.triple ? 'triple' : ''
     classes += props.quad ? 'quad' : ''
+    classes += props.clear ? 'clear' : ''
+    classes += props.equals ? 'equals' : ''
     
     return (
         <button
